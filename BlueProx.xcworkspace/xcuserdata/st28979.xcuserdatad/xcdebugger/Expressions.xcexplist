@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "ClientServerFormatter.generateSessionData(sessionID:loopNum:endTime:activateSensors:testType:):ClientServerFormatter.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "loopList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FreeFormTestViewController.didRunToCompletion():FreeFormTestViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "loopList">
+            </PersistentString>
+            <PersistentString
+               value = "typeSelected">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FreeFormTestViewController.viewDidLoad():FreeFormTestViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "range">
+            </PersistentString>
+            <PersistentString
+               value = "dataSendMethods">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "TestRunDetailSetupViewController.prepare(for:sender:):TestRunDetailSetupViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dataSendMethods">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in FreeFormTestViewController.activityViewController(_:itemForActivityType:):FreeFormTestViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dataSendMethods">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SituationalUserSetupViewController.updateUserInfo():SituationalUserSetupViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "userID">
+            </PersistentString>
+            <PersistentString
+               value = "metaData">
+            </PersistentString>
+            <PersistentString
+               value = "selfUserID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientServerFormatter.init(metaData:partnerScenario:selfScenario:loopList:loopStartTime:):ClientServerFormatter.swift">
+      </ContextState>
+      <ContextState
+         contextName = "DataCollectionSetupViewController.initDataCollectionUI():DataCollectionSetupViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "mitllEmailButton.isChecked&#10;&#10;mitllEmailButton.isChecked">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SituationalUserSetupViewController.textFieldDidEndEditing(_:):SituationalUserSetupViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "userID">
+            </PersistentString>
+            <PersistentString
+               value = "selfUserID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
