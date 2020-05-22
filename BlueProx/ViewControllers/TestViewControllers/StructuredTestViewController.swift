@@ -555,7 +555,7 @@ class StructuredTestViewController: UIViewController, RunCompleteDelegate, MFMai
     }
     
     // NOTE: assumes only one beacon location
-    let numRanges = scenarioSelected.selfLocations!.count
+    let numRanges = scenarioSelected.subjectAngles!.count
     if (currentLoop % numRanges) == 0 {
       isRangeDone = true
     }
