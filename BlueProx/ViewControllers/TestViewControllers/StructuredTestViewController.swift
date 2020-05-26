@@ -254,7 +254,8 @@ class StructuredTestViewController: UIViewController, RunCompleteDelegate, MFMai
   
   func updateLoopCountLabel() {
     let numStations = scenarioSelected.selfLocations!.count
-    let currentStation = Int(ceil(Double((currentLoop)/numStations))) + 1
+    let numStepsPerStation = scenarioSelected.subjectAngles!.count
+    let currentStation = Int(ceil(Double((currentLoop)/numStepsPerStation))) + 1
     stationNumberLabel.text = currentStation.description + " / " + numStations.description
   }
   
