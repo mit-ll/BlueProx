@@ -74,7 +74,10 @@ class StructuredTestViewController: UIViewController, RunCompleteDelegate, MFMai
     
     // Instantiate activateSensors (required), and
     // set a reference to the delegating object
-    activateSensors = ActivateSensors(role: roleSelected, nextTimerDurationSeconds: scenarioSelected.loopDurationSeconds)
+    
+    
+    let beaconIsBlueProx = metaData.partnerTester.model == ApplePhone.notBlueProxTx.rawValue ? false : true
+    activateSensors = ActivateSensors(role: roleSelected, nextTimerDurationSeconds: scenarioSelected.loopDurationSeconds, beaconIsBlueProx: beaconIsBlueProx)
     activateSensors!.runCompleteDelegate = self
         
     initUI()

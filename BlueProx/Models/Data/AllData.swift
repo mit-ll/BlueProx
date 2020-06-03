@@ -5,7 +5,7 @@
 //  Copyright © 2020 Massachusetts Institute of Technology. All rights reserved.
 //
 
-let schemaVerDefault: String = "3"
+let schemaVerDefault: String = "5"
 let schemaNameDefault: String = "MIT-Proximity-Upload"
 
 struct AllData: Codable {

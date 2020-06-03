@@ -26,6 +26,7 @@ class ActivateSensors {
   // Sensor related: Objects from the AppDelegate
   var role: String? = nil
   var currentSettings: EngineeringSettings!
+  var beaconIsBlueProx: Bool = true
   
   var logger: Logger!
   var sensors: Sensors!
@@ -53,8 +54,9 @@ class ActivateSensors {
   weak var rssiDelegate: RSSIDelegate?
   
   // MARK: Initializer
-  init(role: String?, nextTimerDurationSeconds: Int, sensorsEnabledSettings: EngineeringSettings? = nil) {
+  init(role: String?, nextTimerDurationSeconds: Int, sensorsEnabledSettings: EngineeringSettings? = nil, beaconIsBlueProx: Bool) {
     self.role = role
+    self.beaconIsBlueProx = beaconIsBlueProx
     self.nextTimerDurationSeconds = nextTimerDurationSeconds
     
     // Get objects from the AppDelegate
@@ -106,6 +108,10 @@ class ActivateSensors {
     sensors.start(settings: currentSettings)
     advertiser.start()
     scanner.logToFile = true
+    
+    let beaconIsBlueProx = metaData.partnerTester.model == ApplePhone.notBlueProxTx.rawValue ? false : true
+    scanner.beaconIsBlueProx = beaconIsBlueProx
+    
     scanner.startScanForAll()
     scanner.resetRSSICounts()
     
@@ -131,10 +137,6 @@ class ActivateSensors {
   func stopUpdatingRSSICounts() {
     rssiTimer?.invalidate()
     rssiTimer = nil
-  }
-  
-  func wasBlueProxTxFound() -> Bool {
-    return scanner.blueProxTxUUIDFound
   }
   
   // When application moves to the background we need to make
@@ -246,10 +248,12 @@ class ActivateSensors {
   
   @objc private func checkBeaconFoundState() {
     print("[ActivateSensors] checkBeaconFoundState fired ....")
-    if scanner.blueProxTxUUIDFound == false {
-      // Notify calling test
-      runCompleteDelegate?.didNotFindBeacon()
-      stopRun()
+    if scanner.beaconIsBlueProx {
+      if scanner.blueProxTxUUIDFound == false {
+        // Notify calling test
+        runCompleteDelegate?.didNotFindBeacon()
+        stopRun()
+      }
     }
   }
   

@@ -98,8 +98,9 @@ class FreeFormTestViewController: UIViewController, RunCompleteDelegate, RSSIDel
       loopList.insert((partnerLoc: scenarioSelected.partnerLocations![0], selfLoc: scenarioSelected.selfLocations![0], subjAngle: -999), at: 0)
     }
     
+    let beaconIsBlueProx = metaData.partnerTester.model == ApplePhone.notBlueProxTx.rawValue ? false : true
     let sensorsEnabledSettings = EngineeringSettings(enabledGroup: SensorsEnabledGroup.noProx)
-    activateSensors = ActivateSensors(role: nil, nextTimerDurationSeconds: nextDurationSec, sensorsEnabledSettings: sensorsEnabledSettings)
+    activateSensors = ActivateSensors(role: nil, nextTimerDurationSeconds: nextDurationSec, sensorsEnabledSettings: sensorsEnabledSettings, beaconIsBlueProx: beaconIsBlueProx)
     activateSensors!.runCompleteDelegate = self
     activateSensors!.rssiDelegate = self
     

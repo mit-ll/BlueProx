@@ -29,6 +29,7 @@ enum ApplePhone: String, Codable, CaseIterable {
   case elevenPro =  "iPhone 11 Pro"
   case elevenProMax =  "iPhone 11 Pro Max"
   case newer = "iPhone newer"
+  case notBlueProxTx = "-- NOT BLUEPROX --"
 }
 
 class Utility {

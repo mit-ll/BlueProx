@@ -73,6 +73,7 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
   var logToFile: Bool!
   var runDetector: Bool!
   var blueProxTxUUIDFound: Bool = false
+  var beaconIsBlueProx: Bool = true
   
   // Detector parameters
   let M = 5                   // Samples that must cross threshold
@@ -112,6 +113,7 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
     proxRSSICount = 0
     otherRSSICount = 0
     logToFile = false
+    beaconIsBlueProx = true
     runDetector = false
   }
   
