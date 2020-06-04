@@ -15,14 +15,14 @@ struct GyroscopeData: Codable {
   let z: Double
   
   var dictionary: [String : Any] {
-    return ["time_stamp": timestamp,
+    return ["timestamp": timestamp,
             "x": x,
             "y": y,
             "z": z]
   }
   
   enum CodingKeys: String, CodingKey {
-    case timestamp = "time_stamp"
+    case timestamp = "timestamp"
     case x = "x"
     case y = "y"
     case z = "z"
