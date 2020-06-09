@@ -322,7 +322,7 @@ class Sensors: NSObject {
         let timestamp = Utility.getTimestamp()
         let activityFound: Activity = self!.getActivity(activityStatus: activityStatus)
 
-        let s = "Activity,\(activityStatus.timestamp),\(activityFound.rawValue),\(activityStatus.confidence.rawValue)"
+        let s = "Activity,\(timestamp),\(activityFound.rawValue),\(activityStatus.confidence.rawValue)"
         self?.logger.write(s)
         
         let currentActivityData = ActivityData(
