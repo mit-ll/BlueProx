@@ -10,16 +10,21 @@ import UIKit
 class LiveDetectorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
   @IBOutlet weak var liveDetectorDataTableView: UITableView!
+  @IBOutlet weak var rssiLimitLabel: UILabel!
+  @IBOutlet weak var rssiLimitStepper: UIStepper!
   
   
   // MARK: Properties
   
   // Workflow related
-  var detectorData : [LiveViewData] = []
+  var filtered = false
+  var detectorDataDict : [String : LiveViewData] = [:]
+  var detectorDataFromDict : Array<(String, LiveViewData)> = []
+  var detectorDataFromDictFiltered : Array<(String, LiveViewData)> = []
   
   // Signal objects
   // Objects from the AppDelegate
-  var advertiser: BluetoothAdvertiser!
+  // slz: var advertiser: BluetoothAdvertiser!
   var scanner: BluetoothScanner!
   var sensors: Sensors!
   
@@ -48,12 +53,14 @@ class LiveDetectorViewController: UIViewController, UITableViewDelegate, UITable
     
     startStopButton.setupRoundedButton()
     
+    liveDetectorDataTableView.rowHeight = UITableView.automaticDimension
+    liveDetectorDataTableView.estimatedRowHeight = 400
     liveDetectorDataTableView.delegate = self
     liveDetectorDataTableView.dataSource = self
     
     // Get objects from the AppDelegate
     let delegate = UIApplication.shared.delegate as! AppDelegate
-    advertiser = delegate.advertiser
+    // slz: advertiser = delegate.advertiser
     scanner = delegate.scanner
     sensors = delegate.sensors
     
@@ -80,8 +87,8 @@ class LiveDetectorViewController: UIViewController, UITableViewDelegate, UITable
     if isRunning {
       print("22 [LDVC | didEnterBackground]")
       // Cycle the advertister
-      advertiser.stop()
-      advertiser.start()
+      // slz: advertiser.stop()
+      // slz: advertiser.start()
       
       // Scanner can only scan for one service, and must do so in a timed loop
       scanner.stop()
@@ -96,8 +103,8 @@ class LiveDetectorViewController: UIViewController, UITableViewDelegate, UITable
     print("[LDVC | willEnterForeground]")
     if isRunning {
       // Cycle the advertister
-      advertiser.stop()
-      advertiser.start()
+      // slz: advertiser.stop()
+      // slz: advertiser.start()
       
       // Switch scanner from one service to everything
       scanner.stopScanForServiceLoop()
@@ -108,17 +115,33 @@ class LiveDetectorViewController: UIViewController, UITableViewDelegate, UITable
   // MARK: Conform to tableview delegate
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     // Number of rows visible
-    return detectorData.count
+    detectorDataFromDict = detectorDataDict.sorted(by: { $0.0 < $1.0 })
+    var numBT = detectorDataFromDictFiltered.count
+    filtered = true
+    let rssiLimit = Int(rssiLimitLabel.text ?? "0") ?? 0
+    if filtered == true {
+      detectorDataFromDictFiltered = detectorDataFromDict.filter{$0.1.rssi > rssiLimit}
+      numBT = detectorDataFromDictFiltered.count
+    }
+    return numBT
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "ProximityDataItem", for: indexPath) as! ProximityDataItemTableViewCell
-    let item = detectorData[indexPath.row]
-    cell.uuidLabel?.text = item.uuid
-    cell.nameLabel?.text = item.name
-    cell.rssiLabel?.text = item.rssi.description
-    cell.proximityLabel?.text = item.proximity
     
+    var item : (String, LiveViewData)
+    if filtered {
+      item = detectorDataFromDictFiltered[indexPath.row]
+    } else {
+      item = detectorDataFromDict[indexPath.row]
+    }
+    
+    cell.uuidLabel?.text = item.1.uuid
+    cell.nameLabel?.text = item.1.name
+    cell.rssiLabel?.text = item.1.rssi.description
+    cell.proximityLabel?.text = item.1.proximity
+    cell.advTimeLabel?.text = item.1.advTime.description
+
     return cell
   }
   
@@ -126,15 +149,14 @@ class LiveDetectorViewController: UIViewController, UITableViewDelegate, UITable
   // MARK: Methods
   // Starts running
   func startRun() {
-    advertiser.start()
+    // slz: advertiser.start()
     scanner.logToFile = false
     scanner.startDetector()
     scanner.startScanForAll()
     
     let settings = EngineeringSettings(enabledGroup: SensorsEnabledGroup.bluetoothOnly)
     
-    // clear data
-    detectorData.removeAll()
+    detectorDataDict.removeAll()
     liveDetectorDataTableView.reloadData()
     
     startUpdatingTable()
@@ -144,7 +166,7 @@ class LiveDetectorViewController: UIViewController, UITableViewDelegate, UITable
   
   // Stops running
   func stopRun() {
-    advertiser.stop()
+    // slz: advertiser.stop()
     scanner.stopDetector()
     scanner.stop()
     
@@ -165,9 +187,9 @@ class LiveDetectorViewController: UIViewController, UITableViewDelegate, UITable
   }
   
   @objc func updateTable() {
-    print("[updateTable] scanner.detectorData[0].description" + scanner.detectorData.description)
-    detectorData = scanner.detectorData
-    detectorData = detectorData.sorted(by: {$0.uuid < $1.uuid})
+    print("------ [updateTable] scanner.detectorDataDict.description" + scanner.detectorDataDict.description)
+
+    self.detectorDataDict = scanner.detectorDataDict
     liveDetectorDataTableView.reloadData()
     scanner.clearDetectorData()
   }
@@ -182,5 +204,10 @@ class LiveDetectorViewController: UIViewController, UITableViewDelegate, UITable
       startRun()
     }
   }
+  
+  @IBAction func rssiLimitStepper_ValueChanged(_ sender: UIStepper) {
+    rssiLimitLabel.text = Int(sender.value).description
+  }
+  
   
 }

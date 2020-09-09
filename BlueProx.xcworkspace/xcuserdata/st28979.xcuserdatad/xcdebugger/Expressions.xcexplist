@@ -3,10 +3,10 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "ClientServerFormatter.generateSessionData(sessionID:loopNum:endTime:activateSensors:testType:):ClientServerFormatter.swift">
+         contextName = "TestRunDetailSetupViewController.prepare(for:sender:):TestRunDetailSetupViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "loopList">
+               value = "dataSendMethods">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -33,7 +33,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "TestRunDetailSetupViewController.prepare(for:sender:):TestRunDetailSetupViewController.swift">
+         contextName = "closure #1 in FreeFormTestViewController.activityViewController(_:itemForActivityType:):FreeFormTestViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "dataSendMethods">
@@ -41,10 +41,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in FreeFormTestViewController.activityViewController(_:itemForActivityType:):FreeFormTestViewController.swift">
+         contextName = "ClientServerFormatter.generateSessionData(sessionID:loopNum:endTime:activateSensors:testType:):ClientServerFormatter.swift">
          <PersistentStrings>
             <PersistentString
-               value = "dataSendMethods">
+               value = "loopList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "BluetoothScanner.centralManager(_:didDiscover:advertisementData:rssi:):Bluetooth.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "blueProxTxUUID">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -63,15 +71,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ClientServerFormatter.init(metaData:partnerScenario:selfScenario:loopList:loopStartTime:):ClientServerFormatter.swift">
-      </ContextState>
-      <ContextState
-         contextName = "DataCollectionSetupViewController.initDataCollectionUI():DataCollectionSetupViewController.swift">
+         contextName = "LiveDetectorViewController.updateTable():LiveDetectorViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "mitllEmailButton.isChecked&#10;&#10;mitllEmailButton.isChecked">
+               value = "scanner">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientServerFormatter.init(metaData:partnerScenario:selfScenario:loopList:loopStartTime:):ClientServerFormatter.swift">
       </ContextState>
       <ContextState
          contextName = "SituationalUserSetupViewController.textFieldDidEndEditing(_:):SituationalUserSetupViewController.swift">
@@ -81,6 +89,14 @@
             </PersistentString>
             <PersistentString
                value = "selfUserID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DataCollectionSetupViewController.initDataCollectionUI():DataCollectionSetupViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "mitllEmailButton.isChecked&#10;&#10;mitllEmailButton.isChecked">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

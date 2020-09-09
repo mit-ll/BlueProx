@@ -475,7 +475,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
         }
         
         // If we haven't seen this UUID, set up storage for it
-        var uuidIdx = uuids.index(of: uuid)
+        var uuidIdx = uuids.firstIndex(of: uuid)
         if uuidIdx == nil {
             uuids.append(uuid)
             uuidIdx = uuids.count - 1

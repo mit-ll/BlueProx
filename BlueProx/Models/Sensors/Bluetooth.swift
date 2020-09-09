@@ -9,6 +9,8 @@ import UIKit
 import CoreBluetooth
 
 
+// Service UUID (FD6F = exposure notification)
+let enServiceCBUUID = CBUUID(string: "FD6F")
 // Service UUID (0x1800 = generic access) and local name
 let serviceCBUUID = CBUUID(string: "1800")
 let localName = "BlueProxTx"
@@ -94,7 +96,7 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
   // Making an array in case iOS changes the UUID under the hood
   var blueProxTxUUID: [String] = []
   
-  var detectorData: [LiveViewData] = []
+  var detectorDataDict : [String : LiveViewData] = [:]
   var bluetoothData: BluetoothDataAll = BluetoothDataAll(bluetooth: [])
 
   
@@ -141,7 +143,8 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
       var partnerCBUUID: CBUUID = CBUUID()
       if blueProxTxUUID.count > 0 {
         partnerCBUUID = CBUUID(string: blueProxTxUUID.last!)
-        scanner.scanForPeripherals(withServices: [serviceCBUUID, partnerCBUUID], options: [CBCentralManagerScanOptionAllowDuplicatesKey : true])
+        
+         scanner.scanForPeripherals(withServices: [enServiceCBUUID], options: [CBCentralManagerScanOptionAllowDuplicatesKey : true])
       } else {
         scanner.scanForPeripherals(withServices: [serviceCBUUID], options: [CBCentralManagerScanOptionAllowDuplicatesKey : true])
       }
@@ -262,7 +265,7 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
     if runDetector {
       
       // If this is the first time we've seen this UUID, set up storage for it
-      let idx = uuidArr.index(of: uuid)
+      let idx = uuidArr.firstIndex(of: uuid)
       if idx == nil {
         uuidArr.append(uuid)
         nameArr.append(advName)
@@ -321,13 +324,31 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
 
       let estProx = estimatedProximity(detectionState: detArr[uuidIdx])
       
-      let foundUuid = detectorData.filter{$0.uuid == uuidArr[uuidIdx]}
-      if foundUuid.count == 0 {
-        detectorData.append(LiveViewData(
+      var foundUuid = false
+      for (key, value) in detectorDataDict {
+        if key == uuidArr[uuidIdx] {
+          foundUuid = true
+        }
+      }
+      // let foundUuid = detectorDataDict[uuidArr[uuidIdx]].filter{$0.uuid == uuidArr[uuidIdx]}
+//      let foundUuid = detectorData.filter{$0.uuid == uuidArr[uuidIdx]}
+      
+      // if foundUuid.count == 0 {
+      if foundUuid == false {
+//        detectorData.append(LiveViewData(
+//          uuid: uuidArr[uuidIdx],
+//          name: nameArr[uuidIdx] ,
+//          rssi: rssiArr[uuidIdx],
+//          proximity: estProx,
+//          advTime: advTime))
+        
+        // TODO(slz): To phase out detectorData
+        detectorDataDict[uuidArr[uuidIdx]] = LiveViewData(
           uuid: uuidArr[uuidIdx],
           name: nameArr[uuidIdx] ,
           rssi: rssiArr[uuidIdx],
-          proximity: estProx))
+          proximity: estProx,
+          advTime: advTime)
       }
     }
   }
@@ -348,7 +369,7 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
   
   // Start detector processing - clear out all storage before running!
   func clearDetectorData() {
-    detectorData = []
+    detectorDataDict = [:]
   }
   
   func startDetector() {
