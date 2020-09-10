@@ -24,6 +24,10 @@ class LiveDetectorViewController: UIViewController, UITableViewDelegate, UITable
   
   // Signal objects
   // Objects from the AppDelegate
+<<<<<<< HEAD
+=======
+  // slz: var advertiser: BluetoothAdvertiser!
+>>>>>>> 0d2cc639ce6116161024bd289500c682ef9ea143
   var scanner: BluetoothScanner!
   var sensors: Sensors!
   
@@ -59,6 +63,10 @@ class LiveDetectorViewController: UIViewController, UITableViewDelegate, UITable
     
     // Get objects from the AppDelegate
     let delegate = UIApplication.shared.delegate as! AppDelegate
+<<<<<<< HEAD
+=======
+    // slz: advertiser = delegate.advertiser
+>>>>>>> 0d2cc639ce6116161024bd289500c682ef9ea143
     scanner = delegate.scanner
     sensors = delegate.sensors
     
@@ -82,6 +90,14 @@ class LiveDetectorViewController: UIViewController, UITableViewDelegate, UITable
   // the Bluetooth operation so it stays alive.
   @objc func didEnterBackground() {
     if isRunning {
+<<<<<<< HEAD
+=======
+      print("22 [LDVC | didEnterBackground]")
+      // Cycle the advertister
+      // slz: advertiser.stop()
+      // slz: advertiser.start()
+      
+>>>>>>> 0d2cc639ce6116161024bd289500c682ef9ea143
       // Scanner can only scan for one service, and must do so in a timed loop
       scanner.stop()
       scanner.startScanForServiceLoop()
@@ -94,6 +110,13 @@ class LiveDetectorViewController: UIViewController, UITableViewDelegate, UITable
     let settings = EngineeringSettings(enabledGroup: SensorsEnabledGroup.bluetoothOnly)
     print("[LDVC | willEnterForeground]")
     if isRunning {
+<<<<<<< HEAD
+=======
+      // Cycle the advertister
+      // slz: advertiser.stop()
+      // slz: advertiser.start()
+      
+>>>>>>> 0d2cc639ce6116161024bd289500c682ef9ea143
       // Switch scanner from one service to everything
       scanner.stopScanForServiceLoop()
       scanner.startScanForAll()
@@ -137,6 +160,10 @@ class LiveDetectorViewController: UIViewController, UITableViewDelegate, UITable
   // MARK: Methods
   // Starts running
   func startRun() {
+<<<<<<< HEAD
+=======
+    // slz: advertiser.start()
+>>>>>>> 0d2cc639ce6116161024bd289500c682ef9ea143
     scanner.logToFile = false
     scanner.startDetector()
     scanner.startScanForAll()
@@ -153,6 +180,10 @@ class LiveDetectorViewController: UIViewController, UITableViewDelegate, UITable
   
   // Stops running
   func stopRun() {
+<<<<<<< HEAD
+=======
+    // slz: advertiser.stop()
+>>>>>>> 0d2cc639ce6116161024bd289500c682ef9ea143
     scanner.stopDetector()
     scanner.stop()
     

@@ -3,6 +3,7 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+<<<<<<< HEAD
          contextName = "SituationalUserSetupViewController.updateUserInfo():SituationalUserSetupViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -21,6 +22,12 @@
          <PersistentStrings>
             <PersistentString
                value = "scanner">
+=======
+         contextName = "TestRunDetailSetupViewController.prepare(for:sender:):TestRunDetailSetupViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dataSendMethods">
+>>>>>>> 0d2cc639ce6116161024bd289500c682ef9ea143
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -44,9 +51,30 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+<<<<<<< HEAD
          contextName = "ClientServerFormatter.init(metaData:partnerScenario:selfScenario:loopList:loopStartTime:):ClientServerFormatter.swift">
       </ContextState>
       <ContextState
+         contextName = "ClientServerFormatter.generateSessionData(sessionID:loopNum:endTime:activateSensors:testType:):ClientServerFormatter.swift">
+=======
+         contextName = "closure #1 in FreeFormTestViewController.activityViewController(_:itemForActivityType:):FreeFormTestViewController.swift">
+>>>>>>> 0d2cc639ce6116161024bd289500c682ef9ea143
+         <PersistentStrings>
+            <PersistentString
+               value = "loopList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+<<<<<<< HEAD
+         contextName = "FreeFormTestViewController.viewDidLoad():FreeFormTestViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "range">
+            </PersistentString>
+            <PersistentString
+               value = "dataSendMethods">
+=======
          contextName = "ClientServerFormatter.generateSessionData(sessionID:loopNum:endTime:activateSensors:testType:):ClientServerFormatter.swift">
          <PersistentStrings>
             <PersistentString
@@ -55,13 +83,11 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "FreeFormTestViewController.viewDidLoad():FreeFormTestViewController.swift">
+         contextName = "BluetoothScanner.centralManager(_:didDiscover:advertisementData:rssi:):Bluetooth.swift">
          <PersistentStrings>
             <PersistentString
-               value = "range">
-            </PersistentString>
-            <PersistentString
-               value = "dataSendMethods">
+               value = "blueProxTxUUID">
+>>>>>>> 0d2cc639ce6116161024bd289500c682ef9ea143
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -77,6 +103,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+<<<<<<< HEAD
          contextName = "FreeFormTestViewController.textField(_:shouldChangeCharactersIn:replacementString:):FreeFormTestViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -92,11 +119,24 @@
          <PersistentStrings>
             <PersistentString
                value = "blueProxTxUUID">
+=======
+         contextName = "LiveDetectorViewController.updateTable():LiveDetectorViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "scanner">
+>>>>>>> 0d2cc639ce6116161024bd289500c682ef9ea143
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
+<<<<<<< HEAD
          contextName = "closure #1 in FreeFormTestViewController.activityViewController(_:itemForActivityType:):FreeFormTestViewController.swift">
+=======
+         contextName = "ClientServerFormatter.init(metaData:partnerScenario:selfScenario:loopList:loopStartTime:):ClientServerFormatter.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SituationalUserSetupViewController.textFieldDidEndEditing(_:):SituationalUserSetupViewController.swift">
+>>>>>>> 0d2cc639ce6116161024bd289500c682ef9ea143
          <PersistentStrings>
             <PersistentString
                value = "dataSendMethods">
@@ -108,6 +148,14 @@
          <PersistentStrings>
             <PersistentString
                value = "dataSendMethods">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DataCollectionSetupViewController.initDataCollectionUI():DataCollectionSetupViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "mitllEmailButton.isChecked&#10;&#10;mitllEmailButton.isChecked">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
