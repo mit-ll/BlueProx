@@ -10,12 +10,13 @@ import UIKit
 
 class ProximityDataItemTableViewCell: UITableViewCell {
 
-  // MARK: Properties
+  // MA RK: Properties
   
   @IBOutlet weak var uuidLabel: UILabel!
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var rssiLabel: UILabel!
   @IBOutlet weak var proximityLabel: UILabel!
+  @IBOutlet weak var advTimeLabel: UILabel!
   
   
   // MARK: UITableViewCell Overrides

@@ -11,7 +11,7 @@ import AVFoundation
 import MessageUI
 
 
-class FreeFormTestViewController: UIViewController, RunCompleteDelegate, RSSIDelegate, MFMailComposeViewControllerDelegate, UIActivityItemSource {
+class FreeFormTestViewController: UIViewController, UITextFieldDelegate, RunCompleteDelegate, RSSIDelegate, MFMailComposeViewControllerDelegate, UIActivityItemSource {
   
   
   // MARK: Properties
@@ -60,6 +60,10 @@ class FreeFormTestViewController: UIViewController, RunCompleteDelegate, RSSIDel
   @IBOutlet weak var statusButton: UIButton!
   @IBOutlet weak var proxRSSILabel: UILabel!
   @IBOutlet weak var otherRSSILabel: UILabel!
+  @IBOutlet weak var testTimeMinutesTextField: UITextField!
+  @IBOutlet weak var testTimeSecondsTextField: UITextField!
+  @IBOutlet weak var testTimeLabel: UILabel!
+  @IBOutlet weak var testTimeDelimiterLabel: UILabel!
   
   
   // MARK: Enums
@@ -82,7 +86,17 @@ class FreeFormTestViewController: UIViewController, RunCompleteDelegate, RSSIDel
     // Instantiate activateSensors (required), and
     // set a reference to the delegating object
     var nextDurationSec = scenarioSelected.testDurationMinutes * 60
-    
+
+    if scenarioSelected.type != TestType.free_form {
+      testTimeMinutesTextField.isHidden = true
+      testTimeSecondsTextField.isHidden = true
+      testTimeLabel.isHidden = true
+      testTimeDelimiterLabel.isHidden = true
+    } else {
+      nextDurationSec = updateTestTime()
+    }
+    // print("nextDurationSeconds: \(nextDurationSec)")
+
     #if targetEnvironment(simulator)
     nextDurationSec = 3
     #endif
@@ -91,6 +105,9 @@ class FreeFormTestViewController: UIViewController, RunCompleteDelegate, RSSIDel
     nextDurationSec = 10
     #endif
     
+    testTimeMinutesTextField.delegate = self
+    testTimeSecondsTextField.delegate = self
+
     // In free form / situational (both of which use this VC),
     // there is only one item in loop list:
     loopList.removeAll()
@@ -163,11 +180,11 @@ class FreeFormTestViewController: UIViewController, RunCompleteDelegate, RSSIDel
     
     print("typeSelected: \(typeSelected.rawValue)")
     if let loopData = clientServerFormatter?.generateSessionData(
-      sessionID: sessionID,
-      loopNum: 0,
-      endTime: endTime,
-      activateSensors: activateSensors!,
-      testType: typeSelected) {
+        sessionID: sessionID,
+        loopNum: 0,
+        endTime: endTime,
+        activateSensors: activateSensors!,
+        testType: typeSelected) {
       allLoopData.append(loopData)
     } else {
       assert(false, "DEVELOPER - loopData not populated")
@@ -519,9 +536,25 @@ class FreeFormTestViewController: UIViewController, RunCompleteDelegate, RSSIDel
     }
   }
   
+  func updateTestTime() -> Int {
+    var nextDurationSec = 0
+    let testMinutes = testTimeMinutesTextField.text == "" ? 0 : (Int(testTimeMinutesTextField.text ?? "0")!)
+    let testSeconds = testTimeSecondsTextField.text == "" ? 0 : (Int(testTimeSecondsTextField.text ?? "0")!)
+
+    nextDurationSec = testMinutes * 60 + testSeconds
+    print("testMinutes: \(testMinutes)")
+    print("testSeconds: \(testSeconds)")
+    print("nextDurationSeconds: \(nextDurationSec)")
+
+    return nextDurationSec
+  }
+  
   @IBAction func startStopButton_TouchUpInside(_ sender: UIButton) {
     print("[FFTVC | startStopButton_TouchUpInside] thread: \(Thread.current)")
-    // updateScene(sender)
+    if self.scenarioSelected.type == TestType.free_form {
+      let nextDurationSec = updateTestTime()
+      activateSensors?.nextTimerDurationSeconds = nextDurationSec
+    }
     if startStopButton.title(for: .normal) == "Reset" {
       print("[startStopButton_TouchUpInside] Reset, currentState: " + currentState.rawValue.description)
       startStopButton.setTitle("Start", for: .normal)
@@ -731,4 +764,67 @@ class FreeFormTestViewController: UIViewController, RunCompleteDelegate, RSSIDel
     self.angleStepper.wraps = true
   }
   
+  func textFieldDidBeginEditing(_ textField: UITextField) {
+    textField.text = ""
+    print("11.....")
+    
+  }
+  
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    print("33.....")
+    print("33 textField.....: \(textField.text)")
+  }
+  
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    // get the current text, or use an empty string if that failed
+    
+    print("55.....")
+    print("55..... string.count: \(string.count).....")
+    print("55..... string: \(string).....")
+
+    var currentText = textField.text ?? ""
+    
+    print("55..... currentText.count: \(currentText.count).....")
+    print("55..... currentText: \(currentText).....")
+
+    // Deleting first character
+    if string.count == 0 && currentText.count == 1 {
+      currentText = ""
+      textField.text = ""
+      return false
+    }
+    
+    // Attempt to read the range they are trying to change,
+    // or exit if we can't
+    guard let stringRange = Range(range, in: currentText) else { return false }
+    
+    // add their new text to the existing text
+    let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+    
+    // make sure the result is under 16 characters
+    var isValid = false
+    
+    // Note: using num keypad, restricts values [0 - 9]
+    if currentText.count == 0 {
+      if let val = Int(string) {
+        if val >= 0 && val < 6 {
+          isValid = true
+        }
+      }
+    } else if currentText.count == 1 {
+      isValid = true
+    }
+    
+    // Deleting text, allow update
+    if string.count == 0 {
+      isValid = true
+    }
+    
+    // Limit data entry to two characters
+    return updatedText.count <= 2 && isValid
+  }
+
 }
+
+
+

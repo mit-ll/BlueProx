@@ -13,12 +13,14 @@ struct LiveViewData: Codable {
   var name: String
   var rssi: Int
   var proximity: String
+  var advTime: Double
   
   enum CodingKeys: String, CodingKey {
     case uuid
     case name
     case rssi
     case proximity
+    case advTime
   }
   
   var description: String {
@@ -26,6 +28,7 @@ struct LiveViewData: Codable {
     msg = msg + uuid + ","
     msg = msg + name + ","
     msg = msg + rssi.description + ","
+    msg = msg + advTime.description + ","
     msg = msg + proximity + "\n"
     return msg
   }
