@@ -9,11 +9,11 @@ import Foundation
 
 
 class Scenario {
-    let frameworkBundleID: String = "edu.mit.blueprox"
+    let frameworkBundleID: String = Bundle.main.bundleIdentifier!
     var allScenarios: Array<ScenarioModel> = []
     
     private func readJson() {
-        do {
+      do {
             let frameworkBundle = Bundle(identifier: frameworkBundleID)
             if let file = frameworkBundle?.url(forResource: "scenarios", withExtension: "json") {
                 let data = try Data(contentsOf: file)

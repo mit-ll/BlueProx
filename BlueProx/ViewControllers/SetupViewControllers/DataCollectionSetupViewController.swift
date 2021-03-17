@@ -44,6 +44,13 @@ class DataCollectionSetupViewController: UIViewController, UITextFieldDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    //-------------------------
+    // NOTE: MIT email and server decommissioned March 2021
+    // Disable buttons. Text labels hidden from storyboard.
+    mitllEmailButton.isHidden = true
+    mitllServerButton.isHidden = true
+    //-------------------------
+
     initUI()
     
     initDataCollectionUI()
@@ -133,7 +140,8 @@ class DataCollectionSetupViewController: UIViewController, UITextFieldDelegate {
     let atLeastOneSendMethodChecked = (mitllEmailButton.isChecked || userEmailButton.isChecked || mitllServerButton.isChecked)
     if userEmailButton.isChecked {
       // is the text entry valid?
-      let em = userEmailTextField.text ?? ""
+      var em = userEmailTextField.text ?? ""
+      em =  userEmailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
       if em.isValidEmail() {
         return true
       } else {
@@ -185,15 +193,17 @@ class DataCollectionSetupViewController: UIViewController, UITextFieldDelegate {
   
   func textFieldDidEndEditing(_ textField: UITextField) {
     if textField == userEmailTextField {
-      let em = userEmailTextField.text ?? ""
+      // strip any spaces caused by auto-complete
+      var em = userEmailTextField.text ?? ""
+      let cleanedText = userEmailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+      em = cleanedText
       if em.isValidEmail() {
         print("[textFieldDidEndEditing] email OK")
         self.userEmail = em
         userEmailTextField.layer.borderWidth = 1
         userEmailTextField.layer.borderColor = UIColor.gray.cgColor
         userEmailTextField.layer.cornerRadius = 5
-        
-        // self.nextButton.isEnabled = allRequiredTextFieldsAreFilled() ? true : false
+        self.nextButton.isEnabled = true
       } else {
         print("[textFieldDidEndEditing] Invalid email")
         userEmailTextField.text = ""
@@ -204,7 +214,6 @@ class DataCollectionSetupViewController: UIViewController, UITextFieldDelegate {
       }
     }
     
-    // if (allRequiredTextFieldsAreFilled() &&
     if isRequiredAndValidSendMethod() {
       nextButton.isEnabled = true
     } else {

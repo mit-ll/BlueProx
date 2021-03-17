@@ -85,6 +85,13 @@ class TestRunDetailSetupViewController: UIViewController, UIPickerViewDelegate, 
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    //-------------------------
+    // NOTE: MIT email and server decommissioned March 2021
+    // Disable buttons. Text labels hidden from storyboard.
+    mitllEmailButton.isHidden = true
+    mitllServerButton.isHidden = true
+    //-------------------------
+    
     nextButton.setupRoundedButton()
     
     if scenarioSelected.type == .situational {
@@ -327,7 +334,8 @@ class TestRunDetailSetupViewController: UIViewController, UIPickerViewDelegate, 
     let atLeastOneSendMethodChecked = (mitllEmailButton.isChecked || userEmailButton.isChecked || mitllServerButton.isChecked)
     if userEmailButton.isChecked {
       // is the text entry valid?
-      let em = userEmailTextField.text ?? ""
+      var em = userEmailTextField.text ?? ""
+      em =  userEmailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
       if em.isValidEmail() {
         return true
       } else {
@@ -531,7 +539,10 @@ class TestRunDetailSetupViewController: UIViewController, UIPickerViewDelegate, 
   
   func textFieldDidEndEditing(_ textField: UITextField) {
     if textField == userEmailTextField {
-      let em = userEmailTextField.text ?? ""
+      // strip any spaces caused by auto-complete
+      var em = userEmailTextField.text ?? ""
+      let cleanedText = userEmailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+      em = cleanedText
       if em.isValidEmail() {
         print("[textFieldDidEndEditing] email OK")
         self.userEmail = em

@@ -330,19 +330,8 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
           foundUuid = true
         }
       }
-      // let foundUuid = detectorDataDict[uuidArr[uuidIdx]].filter{$0.uuid == uuidArr[uuidIdx]}
-//      let foundUuid = detectorData.filter{$0.uuid == uuidArr[uuidIdx]}
-      
-      // if foundUuid.count == 0 {
+
       if foundUuid == false {
-//        detectorData.append(LiveViewData(
-//          uuid: uuidArr[uuidIdx],
-//          name: nameArr[uuidIdx] ,
-//          rssi: rssiArr[uuidIdx],
-//          proximity: estProx,
-//          advTime: advTime))
-        
-        // TODO(slz): To phase out detectorData
         detectorDataDict[uuidArr[uuidIdx]] = LiveViewData(
           uuid: uuidArr[uuidIdx],
           name: nameArr[uuidIdx] ,
