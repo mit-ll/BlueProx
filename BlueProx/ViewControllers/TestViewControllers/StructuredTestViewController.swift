@@ -257,7 +257,8 @@ class StructuredTestViewController: UIViewController, RunCompleteDelegate, MFMai
   
   func updateLoopCountLabel() {
     let numStations = scenarioSelected.selfLocations!.count
-    let currentStation = Int(ceil(Double((currentLoop)/numStations))) + 1
+    let numStepsPerStation = scenarioSelected.subjectAngles!.count
+    let currentStation = Int(ceil(Double((currentLoop)/numStepsPerStation))) + 1
     stationNumberLabel.text = currentStation.description + " / " + numStations.description
   }
   
@@ -558,7 +559,7 @@ class StructuredTestViewController: UIViewController, RunCompleteDelegate, MFMai
     }
     
     // NOTE: assumes only one beacon location
-    let numRanges = scenarioSelected.selfLocations!.count
+    let numRanges = scenarioSelected.subjectAngles!.count
     if (currentLoop % numRanges) == 0 {
       isRangeDone = true
     }
